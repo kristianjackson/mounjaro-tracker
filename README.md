@@ -42,6 +42,8 @@ pnpm typecheck
 
 This catches unresolved conflict markers and basic TypeScript breakage early.
 
+   ```
+
 ## Key Docs
 
 - Product vision: `docs/PRD.md`
