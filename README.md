@@ -8,6 +8,13 @@ Chat-first health tracking app for users taking GLP-1 medications, with a WhatsA
 - `packages/core`: Shared domain types and helpers
 - `docs`: Product, architecture, and setup plans
 
+## API Internal Modules
+
+- `src/routes`: HTTP route handlers by concern (`health`, `whatsapp`, `analytics`)
+- `src/domain`: parsing + normalization logic
+- `src/storage`: D1 repository helpers
+- `migrations`: D1 SQL migrations
+
 ## Quickstart
 
 1. Install dependencies:

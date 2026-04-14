@@ -1,5 +1,8 @@
 import { Hono } from 'hono'
 import { logger } from 'hono/logger'
+import { analyticsRoutes } from './routes/analytics'
+import { healthRoutes } from './routes/health'
+import { whatsappRoutes } from './routes/whatsapp'
 
 type Env = {
   Bindings: {
@@ -11,6 +14,9 @@ type Env = {
 const app = new Hono<Env>()
 
 app.use('*', logger())
+app.route('/', healthRoutes)
+app.route('/', whatsappRoutes)
+app.route('/', analyticsRoutes)
 
 app.get('/health', (c) => {
   return c.json({ ok: true, service: 'mounjaro-tracker-api', date: new Date().toISOString() })
