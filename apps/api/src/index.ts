@@ -18,6 +18,11 @@ app.route('/', healthRoutes)
 app.route('/', whatsappRoutes)
 app.route('/', analyticsRoutes)
 
+app.notFound((c) => c.json({ error: 'not_found' }, 404))
+
+app.onError((err, c) => {
+  console.error('unhandled_error', err)
+  return c.json({ error: 'internal_error' }, 500)
 app.get('/health', (c) => {
   return c.json({ ok: true, service: 'mounjaro-tracker-api', date: new Date().toISOString() })
 })

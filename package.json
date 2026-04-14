@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "pnpm --filter @mjt/api dev",
     "deploy": "pnpm --filter @mjt/api deploy",
+    "check": "pnpm --filter @mjt/api check",
+    "typecheck": "pnpm --filter @mjt/api check",
+    "check:merge": "bash scripts/check-merge-markers.sh"
     "check": "pnpm --filter @mjt/api check"
   }
 }
