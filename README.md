@@ -31,6 +31,17 @@ Chat-first health tracking app for users taking GLP-1 medications, with a WhatsA
    pnpm check:merge
    ```
 
+## Post-merge sanity checks
+
+When merging branches, run the following before pushing:
+
+```bash
+pnpm check:merge
+pnpm typecheck
+```
+
+This catches unresolved conflict markers and basic TypeScript breakage early.
+
 ## Key Docs
 
 - Product vision: `docs/PRD.md`
