@@ -1,0 +1,8 @@
+name = "mounjaro-tracker-api"
+main = "src/index.ts"
+compatibility_date = "2026-04-14"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mounjaro-tracker"
+database_id = "REPLACE_ME"
