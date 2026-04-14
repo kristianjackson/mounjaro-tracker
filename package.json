@@ -1,0 +1,13 @@
+{
+  "name": "mounjaro-tracker",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Chat-first tracker for medication-related metrics on Cloudflare + Hono",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "pnpm --filter @mjt/api dev",
+    "deploy": "pnpm --filter @mjt/api deploy",
+    "check": "pnpm --filter @mjt/api check",
+    "check:merge": "bash scripts/check-merge-markers.sh"
+  }
+}
