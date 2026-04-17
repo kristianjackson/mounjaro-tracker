@@ -30,6 +30,9 @@ This project is now optimized for a Cloudflare-native serverless MVP with the Me
 - `sidefx 3`
 - Any other text is stored as `notes`.
 
+
+Use `docs/WHATSAPP_COMMAND_GRAMMAR.md` as the canonical source of parsing behavior when updating parser code or onboarding new commands.
+
 ## Suggested Next Steps
 1. Add signature verification for incoming Meta webhooks.
 2. Add outbound WhatsApp reply adapter for confirmations.

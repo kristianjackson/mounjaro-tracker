@@ -24,6 +24,17 @@ export type QuickLogUpdate =
   | { field: 'side_effect_score'; value: number }
   | { field: 'notes'; value: string }
 
+
+export const QUICK_LOG_KEYWORDS = {
+  weight: ['weight', 'wt'],
+  glucose: ['glucose', 'bg'],
+  sleep: ['sleep'],
+  appetite: ['appetite'],
+  sideEffects: ['sidefx', 'sideeffect', 'sideeffects']
+} as const
+
+export const WEIGHT_UNITS = ['kg', 'kgs', 'lb', 'lbs', 'pound', 'pounds'] as const
+
 const NUMERIC_PATTERN = /^[-+]?\d+(?:\.\d+)?$/
 
 const normalize = (text: string): string => text.trim().replace(/\s+/g, ' ')
@@ -83,12 +94,12 @@ export const parseQuickLogUpdate = (text: string): QuickLogUpdate | null => {
   const keyword = parts[0].toLowerCase()
   const valueText = parts.slice(1).join(' ')
 
-  if (keyword === 'weight' || keyword === 'wt') {
+  if (QUICK_LOG_KEYWORDS.weight.includes(keyword as (typeof QUICK_LOG_KEYWORDS.weight)[number])) {
     const kg = parseWeight(valueText)
     return kg === undefined ? null : { field: 'weight_kg', value: kg }
   }
 
-  if (keyword === 'glucose' || keyword === 'bg') {
+  if (QUICK_LOG_KEYWORDS.glucose.includes(keyword as (typeof QUICK_LOG_KEYWORDS.glucose)[number])) {
     const glucose = parseNumber(valueText)
     if (glucose === undefined || glucose <= 0) {
       return null
@@ -97,7 +108,7 @@ export const parseQuickLogUpdate = (text: string): QuickLogUpdate | null => {
     return { field: 'fasting_glucose_mg_dl', value: Number(glucose.toFixed(1)) }
   }
 
-  if (keyword === 'sleep') {
+  if (QUICK_LOG_KEYWORDS.sleep.includes(keyword as (typeof QUICK_LOG_KEYWORDS.sleep)[number])) {
     const sleep = parseNumber(valueText)
     if (sleep === undefined || sleep <= 0 || sleep > 24) {
       return null
@@ -106,12 +117,12 @@ export const parseQuickLogUpdate = (text: string): QuickLogUpdate | null => {
     return { field: 'sleep_hours', value: Number(sleep.toFixed(2)) }
   }
 
-  if (keyword === 'appetite') {
+  if (QUICK_LOG_KEYWORDS.appetite.includes(keyword as (typeof QUICK_LOG_KEYWORDS.appetite)[number])) {
     const appetite = parseScore(valueText)
     return appetite === undefined ? null : { field: 'appetite_score', value: appetite }
   }
 
-  if (keyword === 'sidefx' || keyword === 'sideeffect' || keyword === 'sideeffects') {
+  if (QUICK_LOG_KEYWORDS.sideEffects.includes(keyword as (typeof QUICK_LOG_KEYWORDS.sideEffects)[number])) {
     const score = parseScore(valueText)
     return score === undefined ? null : { field: 'side_effect_score', value: score }
   }
