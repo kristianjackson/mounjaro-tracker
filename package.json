@@ -10,6 +10,5 @@
     "check": "pnpm --filter @mjt/api check",
     "typecheck": "pnpm --filter @mjt/api check",
     "check:merge": "bash scripts/check-merge-markers.sh"
-    "check": "pnpm --filter @mjt/api check"
   }
 }

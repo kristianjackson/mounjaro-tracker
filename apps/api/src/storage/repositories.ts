@@ -1,3 +1,4 @@
+import type { QuickLogUpdate } from '@mjt/core'
 import type { ParsedWhatsAppMessage } from '../domain/whatsapp'
 
 export const upsertUser = async (db: D1Database, phone: string, displayName?: string) => {
@@ -35,5 +36,36 @@ export const insertIncomingMessageEvent = async (db: D1Database, message: Parsed
         rawMessage: message.payload
       })
     )
+    .run()
+}
+
+const METRIC_FIELDS = new Set([
+  'weight_kg',
+  'fasting_glucose_mg_dl',
+  'sleep_hours',
+  'appetite_score',
+  'side_effect_score',
+  'notes'
+])
+
+export const upsertDailyMetricFromQuickLog = async (
+  db: D1Database,
+  userPhone: string,
+  dateIso: string,
+  update: QuickLogUpdate
+) => {
+  if (!METRIC_FIELDS.has(update.field)) {
+    return
+  }
+
+  await db
+    .prepare(
+      `INSERT INTO daily_metrics (user_phone, metric_date, ${update.field})
+       VALUES (?, ?, ?)
+       ON CONFLICT(user_phone, metric_date)
+       DO UPDATE SET
+          ${update.field} = excluded.${update.field}`
+    )
+    .bind(userPhone, dateIso, update.value)
     .run()
 }

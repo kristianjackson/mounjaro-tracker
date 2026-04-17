@@ -42,11 +42,14 @@ pnpm typecheck
 
 This catches unresolved conflict markers and basic TypeScript breakage early.
 
-   ```
 
 ## Key Docs
 
 - Product vision: `docs/PRD.md`
 - Technical architecture: `docs/ARCHITECTURE.md`
+- Cloudflare free-build plan: `docs/CLOUDFLARE_FREE_BUILD.md`
+- WhatsApp command grammar: `docs/WHATSAPP_COMMAND_GRAMMAR.md`
+- Parser test matrix: `docs/PARSER_TEST_MATRIX.md`
+- Webhook signature verification guide (step 3): `docs/WEBHOOK_SIGNATURE_VERIFICATION.md`
 - Implementation plan: `docs/ROADMAP.md`
 - VS Code + MCP setup: `docs/MCP_SETUP_VSCODE.md`
