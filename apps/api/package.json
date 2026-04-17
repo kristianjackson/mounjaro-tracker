@@ -9,6 +9,7 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
+    "@mjt/core": "workspace:*",
     "hono": "^4.8.0"
   },
   "devDependencies": {
