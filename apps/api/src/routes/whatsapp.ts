@@ -1,6 +1,7 @@
+import { parseQuickLogUpdate } from '@mjt/core'
 import { Hono } from 'hono'
 import { parseWhatsAppWebhook } from '../domain/whatsapp'
-import { insertIncomingMessageEvent, upsertUser } from '../storage/repositories'
+import { insertIncomingMessageEvent, upsertDailyMetricFromQuickLog, upsertUser } from '../storage/repositories'
 
 type Env = {
   Bindings: {
@@ -27,10 +28,24 @@ whatsappRoutes.post('/webhooks/whatsapp', async (c) => {
   const payload = await c.req.json().catch(() => ({}))
   const messages = parseWhatsAppWebhook(payload)
 
+  let metricUpdates = 0
   for (const message of messages) {
     await upsertUser(c.env.DB, message.from, message.contactName)
     await insertIncomingMessageEvent(c.env.DB, message)
+
+    if (!message.text) {
+      continue
+    }
+
+    const update = parseQuickLogUpdate(message.text)
+    if (!update) {
+      continue
+    }
+
+    const metricDate = new Date(message.timestamp * 1000).toISOString().slice(0, 10)
+    await upsertDailyMetricFromQuickLog(c.env.DB, message.from, metricDate, update)
+    metricUpdates += 1
   }
 
-  return c.json({ received: true, processed: messages.length })
+  return c.json({ received: true, processed: messages.length, metricUpdates })
 })
