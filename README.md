@@ -52,3 +52,19 @@ This catches unresolved conflict markers and basic TypeScript breakage early.
 - Webhook signature verification guide (step 3): `docs/WEBHOOK_SIGNATURE_VERIFICATION.md`
 - Implementation plan: `docs/ROADMAP.md`
 - VS Code + MCP setup: `docs/MCP_SETUP_VSCODE.md`
+
+
+## PR Checklist
+
+Before opening or updating a PR for this repo, run:
+
+```bash
+pnpm check:merge
+pnpm typecheck
+```
+
+And include in the PR body:
+- what changed
+- why it changed
+- what you tested (with exact commands)
+
